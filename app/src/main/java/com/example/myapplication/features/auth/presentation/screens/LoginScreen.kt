@@ -1,6 +1,6 @@
 package com.example.myapplication.features.auth.presentation.screens
-
 import android.graphics.Color
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,34 +13,97 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.core.navigation.Screen
+import com.example.myapplication.core.network.NetworkResult
 import com.example.myapplication.core.sharedCompnents.CustomButton
 import com.example.myapplication.core.sharedCompnents.CustomHeight
 import com.example.myapplication.core.sharedCompnents.CustomTextField
+import com.example.myapplication.core.validation.AppValidation
+import com.example.myapplication.features.auth.domain.models.LoginRequest
+import com.example.myapplication.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.myapplication.ui.theme.black
 import com.example.myapplication.ui.theme.grey
 import com.example.myapplication.ui.theme.primaryColor
 import com.example.myapplication.ui.theme.red
+import org.koin.compose.viewmodel.koinViewModel
 import java.time.format.TextStyle
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(
+    // ====
+    viewModel: AuthViewModel =koinViewModel() ,
+    navController: NavController) {
+    val appValidation = AppValidation()
+
+    val loginState by viewModel.loginState.collectAsState()
+    val context = LocalContext.current
+    val isLoading = loginState is NetworkResult.Loading
+
+    var emailError by remember {
+        mutableStateOf<String?>(null)
+    }
+
+    var passwordError by remember {
+        mutableStateOf<String?>(null)
+    }
+    var remeberMe by remember {
+        mutableStateOf(false)
+    }
+    var visiblePassword by remember {
+        mutableStateOf(false)
+    }
+
+
+    LaunchedEffect(loginState) {
+        when (val state = loginState) {
+
+
+            is NetworkResult.Success -> {
+                navController.navigate(Screen.SignUp.route)
+            }
+
+            is NetworkResult.Error -> {
+                Toast.makeText(context,
+                    state.message,
+                    Toast.LENGTH_LONG).show()
+            }
+
+            null -> Unit
+            else -> {}
+        }
+    }
+
+       val emailState = rememberTextFieldState()
+        val passwordState = rememberTextFieldState()
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize().padding(22.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(22.dp)
     ) {
         Icon(
             tint = primaryColor,
@@ -61,14 +124,18 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 
         // Email
         CustomTextField(
+            errorMessage = emailError,
+            isError = emailError!=null,
+            state = emailState,
             modifier = Modifier.fillMaxWidth(),
-            label = "Enter Your Eamil",
+            label = "Enter Your Email",
             leadingIcon = {
+                // => <=
                 Icon(
                     painter = painterResource(R.drawable.email_icon) ,
                     contentDescription = null ,
                     tint =primaryColor,
-                )
+                    )
 
             }
         )
@@ -76,6 +143,10 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 
         // Password
         CustomTextField(
+            isPasswordField = true,
+            errorMessage = passwordError,
+            isError = passwordError!=null,
+            state = passwordState,
             modifier = Modifier.fillMaxWidth(),
             label = "Enter Your Password",
             leadingIcon = {
@@ -100,15 +171,17 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Checkbox(
-                checked = false , onCheckedChange ={} ,
+                checked = remeberMe , onCheckedChange ={
+                    remeberMe = it
+                } ,
             )
             Text("Remember me" ,
-            style = MaterialTheme.typography.labelMedium
+            style = MaterialTheme.typography.labelLarge
                 )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 "Forgot Password?" ,
-                style = MaterialTheme.typography.labelMedium.copy(
+                style = MaterialTheme.typography.labelLarge.copy(
                     color = black,
                     textDecoration = TextDecoration.Underline
                 ) ,
@@ -117,16 +190,32 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             )
         }
         CustomHeight(16.0)
-        CustomButton(title = "Login" , bgColor = grey)
+        CustomButton(
+            onClick = {
+                 emailError = appValidation.validateEmail(emailState.text.toString())
+                 passwordError = appValidation.validatePassword(passwordState.text.toString())
+                if(emailError == null && passwordError == null ){
+                    viewModel.login(
+                        LoginRequest(
+                            email =emailState.text.toString() ,
+                            password = passwordState.text.toString()
+                        )
+                    )
+                }
+
+            } ,
+            title = "Login" ,
+            bgColor =primaryColor
+
+        )
+
         CustomHeight(8.0)
 
         Row() {
             Text(
                 "Don't have an account? " ,
                 style = MaterialTheme.typography.labelLarge,
-
-
-            )
+                )
             Text(
                 "Sign up" ,
                 style = MaterialTheme.typography.labelLarge.copy(
@@ -134,16 +223,33 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                     fontWeight = FontWeight.Bold,
                     textDecoration = TextDecoration.Underline ,
                 ),
-                modifier = Modifier.clickable {  }
+                modifier = Modifier.clickable {
+                    navController.navigate(Screen.SignUp.route)
+                }
 
                 )
+        }
+        if(isLoading){
+            CircularProgressIndicator(color = primaryColor)
         }
     }
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showSystemUi = true, showBackground = true, apiLevel = 35)
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen()
-
+    LoginScreen(navController = NavController(LocalContext.current))
+    
 }
+
+
+
+/*
+1- visiability (on , off )
+2- error api
+3- koin flow class -> revision ...
+4- view model ...
+
+*/
+
+

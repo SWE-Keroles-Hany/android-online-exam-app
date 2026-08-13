@@ -7,7 +7,6 @@ sealed class NetworkResult<out T> {
 
     data class Error(
         val message: String,
-        val code: Int? = null
     ) : NetworkResult<Nothing>()
 
     data object Loading : NetworkResult<Nothing>()

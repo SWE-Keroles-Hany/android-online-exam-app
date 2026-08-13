@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 fun CustomButton(
     bgColor : Color ,
     title : String ,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier.fillMaxWidth()
@@ -28,7 +29,7 @@ fun CustomButton(
             contentPadding = PaddingValues(12.dp),
             modifier = Modifier.fillMaxWidth() ,
 
-            onClick ={} ,
+            onClick =onClick ,
         ) {
             Text(title, fontSize = 20.sp,)
 

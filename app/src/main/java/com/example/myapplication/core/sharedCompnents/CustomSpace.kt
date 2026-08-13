@@ -2,6 +2,7 @@ package com.example.myapplication.core.sharedCompnents
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -12,5 +13,5 @@ fun CustomHeight(height: Double) {
 }
 @Composable
 fun CustomWidth(width: Double) {
-    Spacer(modifier = Modifier.height(width.dp))
+    Spacer(modifier = Modifier.width(width.dp))
 }
