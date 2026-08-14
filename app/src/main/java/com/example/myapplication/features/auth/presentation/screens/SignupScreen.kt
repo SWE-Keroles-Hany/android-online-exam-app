@@ -83,6 +83,11 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController ,
         when (val state = signupState) {
 
             is NetworkResult.Success -> {
+                Toast.makeText(
+                    context,
+                    "Signup Success",
+                    Toast.LENGTH_SHORT
+                ).show()
                 navController.navigate(Screen.Login.route)
                 viewModel.clearSignupState()
             }
@@ -321,8 +326,3 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController ,
     }
 }}
 
-@Preview
-@Composable
-private fun SignupScreenPreview() {
-    SignUpScreen(navController = NavController(LocalContext.current))
-}

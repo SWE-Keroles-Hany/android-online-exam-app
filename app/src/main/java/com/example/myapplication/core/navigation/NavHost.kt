@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.features.auth.presentation.screens.LoginScreen
 import com.example.myapplication.features.auth.presentation.screens.SignUpScreen
+import com.example.myapplication.features.home.presentation.HomeScreen
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -15,7 +16,7 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Login.route
+        startDestination = Screen.Home.route
     ) {
 
         composable(Screen.Login.route) {
@@ -29,6 +30,9 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
                 navController=navController)
         }
-        composable(Screen.Home.route) {  }
+        composable(Screen.Home.route) {
+            HomeScreen(navController = navController)
+
+        }
     }
 }

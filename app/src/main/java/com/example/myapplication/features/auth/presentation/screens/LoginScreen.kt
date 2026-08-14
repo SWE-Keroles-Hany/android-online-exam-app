@@ -82,7 +82,7 @@ fun LoginScreen(
 
 
             is NetworkResult.Success -> {
-                navController.navigate(Screen.SignUp.route)
+                navController.navigate(Screen.Home.route)
             }
 
             is NetworkResult.Error -> {
@@ -244,12 +244,5 @@ private fun LoginScreenPreview() {
 
 
 
-/*
-1- visiability (on , off )
-2- error api
-3- koin flow class -> revision ...
-4- view model ...
-
-*/
 
 
