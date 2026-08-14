@@ -7,8 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.features.auth.presentation.screens.LoginScreen
 import com.example.myapplication.features.auth.presentation.screens.SignUpScreen
-import com.example.myapplication.features.home.presentation.HomeScreen
-import org.koin.compose.viewmodel.koinViewModel
+import com.example.myapplication.features.home.presentation.Screens.HomeScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {

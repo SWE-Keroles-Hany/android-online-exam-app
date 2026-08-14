@@ -1,12 +1,8 @@
-package com.example.myapplication.features.home.presentation
-import android.R.attr.label
+package com.example.myapplication.features.home.presentation.Screens
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Assessment
 import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Quiz
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -20,10 +16,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import com.example.myapplication.features.home.presentation.componenets.HomeTab
+import com.example.myapplication.features.home.presentation.componenets.NavItem
 import com.example.myapplication.features.profile.presentation.ProfileTab
 import com.example.myapplication.features.results.presentation.ResultsTab
 import com.example.myapplication.ui.theme.primaryColor
-import com.google.android.gms.dtdi.analytics.Results
 
 // nav item , nav item list ,
 @Composable
@@ -72,7 +69,7 @@ fun HomeScreen( navController: NavController) {
     ) {
         innerPadding ->
         when(selectedIndex){
-            0 -> HomeTab()
+            0 -> HomeTab(navController = navController)
             1-> ResultsTab()
             2-> ProfileTab()
         }
