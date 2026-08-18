@@ -17,10 +17,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.myapplication.core.sharedCompnents.CustomWidth
 
 @Composable
-fun CustomSubject(modifier: Modifier = Modifier , icon : Int , title : String) {
+fun CustomSubject(modifier: Modifier = Modifier , imgURL : String , title : String) {
     Box(
         modifier = modifier
             .shadow(
@@ -36,9 +37,10 @@ fun CustomSubject(modifier: Modifier = Modifier , icon : Int , title : String) {
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ){
-            Image(
+            AsyncImage(
+                model = imgURL,
+
                 modifier = Modifier.size(50.dp),
-                painter = painterResource(icon) ,
                 contentDescription = null ,
             )
             CustomWidth(8.0)

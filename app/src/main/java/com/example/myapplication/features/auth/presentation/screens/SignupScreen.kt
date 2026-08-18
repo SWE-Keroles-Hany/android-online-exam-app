@@ -88,7 +88,7 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController ,
                     "Signup Success",
                     Toast.LENGTH_SHORT
                 ).show()
-                navController.navigate(Screen.Login.route)
+                navController.navigate(Screen.LoginScreen.route)
                 viewModel.clearSignupState()
             }
 
@@ -314,7 +314,7 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController ,
                         textDecoration = TextDecoration.Underline ,
                     ),
                     modifier = Modifier.clickable {
-                        navController.navigate(Screen.Login.route)
+                        navController.navigate(Screen.LoginScreen.route)
                     }
 
                 )

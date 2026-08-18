@@ -82,7 +82,7 @@ fun LoginScreen(
 
 
             is NetworkResult.Success -> {
-                navController.navigate(Screen.Home.route)
+                navController.navigate(Screen.HomeScreen.route)
             }
 
             is NetworkResult.Error -> {
@@ -224,7 +224,7 @@ fun LoginScreen(
                     textDecoration = TextDecoration.Underline ,
                 ),
                 modifier = Modifier.clickable {
-                    navController.navigate(Screen.SignUp.route)
+                    navController.navigate(Screen.SignUpScreen.route)
                 }
 
                 )

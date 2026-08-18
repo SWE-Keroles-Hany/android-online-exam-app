@@ -7,6 +7,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.features.auth.presentation.screens.LoginScreen
 import com.example.myapplication.features.auth.presentation.screens.SignUpScreen
+import com.example.myapplication.features.exams.presentation.Screens.ArtExamsScreen
+import com.example.myapplication.features.exams.presentation.Screens.LanguageExamsScreen
+import com.example.myapplication.features.exams.presentation.Screens.MathExamsScreen
+import com.example.myapplication.features.exams.presentation.Screens.ScienceExamsScreen
 import com.example.myapplication.features.home.presentation.Screens.HomeScreen
 
 @Composable
@@ -15,22 +19,38 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = Screen.HomeScreen.route
     ) {
 
-        composable(Screen.Login.route) {
+        composable(Screen.LoginScreen.route) {
             LoginScreen(
 
                 navController = navController)
         }
 
-        composable(Screen.SignUp.route){
+        composable(Screen.SignUpScreen.route){
             SignUpScreen(
 
                 navController=navController)
         }
-        composable(Screen.Home.route) {
+        composable(Screen.HomeScreen.route) {
             HomeScreen(navController = navController)
+
+        }
+        composable(Screen.LanguageExamsScreen.route) {
+            LanguageExamsScreen(navController = navController)
+
+        }
+        composable(Screen.MathExamsScreen.route) {
+            MathExamsScreen(navController = navController)
+
+        }
+        composable(Screen.ArtExamsScreen.route) {
+            ArtExamsScreen(navController = navController)
+
+        }
+        composable(Screen.ScienceExamsScreen.route) {
+            ScienceExamsScreen(navController)
 
         }
     }

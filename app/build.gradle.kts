@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
@@ -59,6 +60,7 @@ dependencies {
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.androidx.material3)
     implementation(libs.play.services.dtdi)
+    implementation(libs.androidx.constraintlayout.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
