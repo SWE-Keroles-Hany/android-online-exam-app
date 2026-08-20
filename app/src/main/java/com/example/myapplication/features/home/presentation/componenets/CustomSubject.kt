@@ -21,7 +21,7 @@ import coil.compose.AsyncImage
 import com.example.myapplication.core.sharedCompnents.CustomWidth
 
 @Composable
-fun CustomSubject(modifier: Modifier = Modifier , imgURL : String , title : String) {
+fun CustomSubjectItem(modifier: Modifier = Modifier , imgURL : String , title : String) {
     Box(
         modifier = modifier
             .shadow(

@@ -1,9 +1,7 @@
 package com.example.myapplication.features.home.data.remote.datasource
 
 import com.example.myapplication.core.network.NetworkResult
-import com.example.myapplication.features.home.data.mapper.toDomain
 import com.example.myapplication.features.home.data.remote.dto.SubjectResults
-import com.example.myapplication.features.home.domain.models.Subject
 
 class SubjectsRemoteDataSource(
     private val subjectsApi: SubjectsApi

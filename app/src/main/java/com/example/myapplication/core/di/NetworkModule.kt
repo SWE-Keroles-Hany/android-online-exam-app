@@ -4,6 +4,7 @@ import com.example.myapplication.core.network.AuthInterceptor
 import com.example.myapplication.core.network.NetworkConstants
 import com.example.myapplication.core.network.NetworkConstants.BASE_URL
 import com.example.myapplication.features.auth.data.remote.AuthApi
+import com.example.myapplication.features.exams.data.remote.datasource.ExamsApi
 import com.example.myapplication.features.home.data.remote.datasource.SubjectsApi
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -39,4 +40,8 @@ val networkModule = module {
     single<SubjectsApi> {
         get<Retrofit>().create(SubjectsApi::class.java)
     }
+    single<ExamsApi> {
+        get<Retrofit>().create(ExamsApi::class.java)
+    }
+
 }

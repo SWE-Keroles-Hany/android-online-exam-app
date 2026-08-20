@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.core.navigation.Screen
 import com.example.myapplication.core.sharedCompnents.CustomHeight
 import com.example.myapplication.features.home.domain.models.Subject
 import com.example.myapplication.features.home.presentation.viewmodel.SubjectUiState
@@ -80,11 +81,15 @@ fun HomeTabBody(
                     val subjectList : List<Subject> = (uiState as SubjectUiState.Success).subjects;
                     items(subjectList) { item ->
 
-                        CustomSubject(
+                        CustomSubjectItem(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(bottom = 16.dp).clickable {
-                                },
+                                    navController.navigate(Screen.ExamsScreen.route)
+                                   // when navigate (send name to exam screen - call exams by sId)
+
+
+                                                                   },
                             imgURL = item.icon,
                             title = item.name
                         )

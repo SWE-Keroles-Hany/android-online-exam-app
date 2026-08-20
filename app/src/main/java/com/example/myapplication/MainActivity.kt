@@ -18,12 +18,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme{
-                Scaffold(){innerPadding ->
-
+                Scaffold(){
+                    innerPadding ->
                     AppNavHost()
-
                 }
             }
         }
     }
 }
+/*
+1- Di - Interceptor ==> Flow
+2- Data Store For Token
+3- how implement Exams screens
+4-
+
+ */

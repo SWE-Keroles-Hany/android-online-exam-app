@@ -30,7 +30,7 @@ class SubjectsViewModel (private  val getAllSubjectsUseCase: GetAllSubjects) : V
                    _uiState.value = SubjectUiState.Success(result.data)
                }
                is NetworkResult.Error -> {
-                   _uiState.value = SubjectUiState.Error(result.message)
+                   _uiState.value = SubjectUiState.Error(result.message?:"Some Thing Went Wrong")
                }
 
                else -> {
