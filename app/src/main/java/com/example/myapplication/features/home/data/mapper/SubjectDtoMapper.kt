@@ -8,7 +8,7 @@ import com.example.myapplication.features.home.domain.models.Subject
 
 fun SubjectDto.toDomain():Subject {
     return Subject(
-        id = id ,
+        id = _id ,
         icon = icon ,
         name = name
     );

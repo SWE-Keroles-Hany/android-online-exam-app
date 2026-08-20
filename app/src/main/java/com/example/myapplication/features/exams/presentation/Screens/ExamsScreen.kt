@@ -12,6 +12,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.myapplication.core.sharedCompnents.CustomHeight
 import com.example.myapplication.core.sharedCompnents.CustomTopBar
+import com.example.myapplication.core.sharedCompnents.LoadingIndicator
 import com.example.myapplication.features.exams.presentation.Componenets.CustomExamItem
 import com.example.myapplication.features.exams.domain.models.Exam
 import com.example.myapplication.features.exams.presentation.viewmodel.ExamsUiState
@@ -34,85 +36,16 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ExamsScreen(
-    examsViewModel: ExamsViewModel = koinViewModel(),
-    navController: NavController )
+    subjectId : String? ,
+    subjectTitle:String? ,
+    navController: NavController)
 {
-    val uiState = examsViewModel.examsUiState.collectAsStateWithLifecycle() ;
-    Log.d("TAG", "ExamsScreen: ${uiState.value}")
-    var examName by remember {
-        mutableStateOf("..")
-    }
-
-    if(uiState.value is ExamsUiState.Success){
-        examName= (uiState.value as ExamsUiState.Success).exams[0].title
-    }
-
     Scaffold(
         containerColor = white,
-        topBar = {
-            CustomTopBar(
-                navController = navController, title = examName) }
-
-    ) {
+        topBar = {CustomTopBar(navController = navController, title = subjectTitle ?:"")})
+    {
         innerPadding ->
-        Column(
-            modifier = Modifier.fillMaxSize().padding(22.dp)
-        ) {
-            when (uiState.value) {
-                is ExamsUiState.Success -> {
-                    val items = (uiState.value as ExamsUiState.Success).exams
-                    LazyColumn(
-                        contentPadding = PaddingValues(
-                            top = 80.dp,
-                            bottom = 12.dp
-                        ),
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        items(items) { item ->
-                            CustomExamItem(
-
-                                title = item.title,
-                                minutes = item.duration,
-                                from = "",
-                                to = "",
-                                questionsNumber = item.numberOfQuestions
-                            )
-                            CustomHeight(12.0)
-                        }
-
-                    }
-
-                }
-
-                is ExamsUiState.Loading -> {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        CircularProgressIndicator()
-                    }
-
-                }
-
-                is ExamsUiState.Error -> {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        Text((uiState.value as ExamsUiState.Error).message)
-                    }
-
-                }
-            }
-
-        }
-
-    }}
-
-
-@Preview
-@Composable
-private fun ExamScreenPreview()
-{
-    ExamsScreen(navController = NavController(LocalContext.current))
-}
+        ExamScreenBody(
+            subjectId = subjectId,
+        )
+     }}

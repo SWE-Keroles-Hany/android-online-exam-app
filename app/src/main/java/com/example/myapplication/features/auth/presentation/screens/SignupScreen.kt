@@ -84,9 +84,9 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController ,
 
             is NetworkResult.Success -> {
                 Toast.makeText(
-                    context,
-                    "Signup Success",
-                    Toast.LENGTH_SHORT
+                        context,
+                "Signup Success",
+                Toast.LENGTH_SHORT
                 ).show()
                 navController.navigate(Screen.LoginScreen.route)
                 viewModel.clearSignupState()

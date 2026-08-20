@@ -1,6 +1,8 @@
 package com.example.myapplication.features.home.presentation.componenets
 
+import android.util.Log
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,7 +28,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.core.navigation.Screen
+import com.example.myapplication.core.sharedCompnents.CustomError
 import com.example.myapplication.core.sharedCompnents.CustomHeight
+import com.example.myapplication.core.sharedCompnents.LoadingIndicator
 import com.example.myapplication.features.home.domain.models.Subject
 import com.example.myapplication.features.home.presentation.viewmodel.SubjectUiState
 import com.example.myapplication.features.home.presentation.viewmodel.SubjectsViewModel
@@ -41,10 +46,10 @@ fun HomeTabBody(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var textFieldState by remember { mutableStateOf(TextFieldState()) }
 
-
-
     Column(
-        Modifier.fillMaxSize().padding(22.dp)
+        Modifier
+            .fillMaxSize()
+            .padding(22.dp)
     ) {
         CustomHeight(16.0)
         // label
@@ -53,7 +58,7 @@ fun HomeTabBody(
                 color = primaryColor ,
                 fontWeight = FontWeight.W500))
 
-        // search text field
+        // Search text field
         CustomHeight(16.0)
         SimpleSearchBar(
             textFieldState = textFieldState,
@@ -66,7 +71,7 @@ fun HomeTabBody(
         CustomHeight(24.0)
         when (uiState) {
             is SubjectUiState.Loading -> {
-                CircularProgressIndicator()
+                LoadingIndicator()
             }
 
             is SubjectUiState.Success -> {
@@ -75,21 +80,22 @@ fun HomeTabBody(
                         top = 10.dp,
                         bottom =80.dp),
 
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .weight(1f)
                 ) {
                     val subjectList : List<Subject> = (uiState as SubjectUiState.Success).subjects;
-                    items(subjectList) { item ->
-
+                    Log.d("TAG", "HomeTabBody: ${subjectList.last()}")
+                    items(subjectList) {
+                        item ->
                         CustomSubjectItem(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(bottom = 16.dp).clickable {
-                                    navController.navigate(Screen.ExamsScreen.route)
-                                   // when navigate (send name to exam screen - call exams by sId)
+                                .padding(bottom = 16.dp)
+                                .clickable {
+                                    navController.navigate(Screen.ExamsScreen.route + "/${item.id}"+"/${item.name}")
 
-
-                                                                   },
+                                },
                             imgURL = item.icon,
                             title = item.name
                         )
@@ -98,7 +104,7 @@ fun HomeTabBody(
             }
 
             else -> {
-                Text(uiState.toString())
+                CustomError((uiState as SubjectUiState.Error).message)
             }
         }
 

@@ -21,10 +21,10 @@ class ExamsViewModel(
     val examsUiState = _examsUiState.asStateFlow()
     val questionsUiState =_questionsUiState.asStateFlow()
 
-    init {
-        getExamsBySubjectId("69d980107c82914570305dbd")
-       // getQuestionsByExamId("")
-    }
+//    init {
+//        getExamsBySubjectId("69d980107c82914570305dbd")
+//       // getQuestionsByExamId("")
+//    }
 
      fun getExamsBySubjectId(subjectId: String){
         viewModelScope.launch {

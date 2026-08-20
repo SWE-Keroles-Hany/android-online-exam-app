@@ -17,28 +17,29 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route
+        startDestination = Screen.LoginScreen.route
     ) {
 
         composable(Screen.LoginScreen.route) {
-            LoginScreen(
-
-                navController = navController)
+            LoginScreen(navController = navController)
         }
 
         composable(Screen.SignUpScreen.route){
-            SignUpScreen(
-
-                navController=navController)
+            SignUpScreen(navController=navController)
         }
-        composable(Screen.HomeScreen.route) {
+
+        composable(Screen.HomeScreen.route){
             HomeScreen(navController = navController)
-
         }
 
 
-        composable(Screen.ExamsScreen.route) {
-            ExamsScreen(navController = navController)
+        composable(Screen.ExamsScreen.route+"/{subjectId}/{subjectTitle}") {
+                backStackEntry ->
+val subjectId = backStackEntry.arguments?.getString("subjectId")
+val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
+            ExamsScreen(navController = navController , subjectId = subjectId ,
+                subjectTitle = subjectTitle ,
+                )
 
         }
     }

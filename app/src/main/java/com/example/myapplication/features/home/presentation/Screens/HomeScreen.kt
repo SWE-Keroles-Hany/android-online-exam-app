@@ -21,6 +21,7 @@ import com.example.myapplication.features.home.presentation.componenets.NavItem
 import com.example.myapplication.features.profile.presentation.ProfileTab
 import com.example.myapplication.features.results.presentation.ResultsTab
 import com.example.myapplication.ui.theme.primaryColor
+import com.example.myapplication.ui.theme.white
 
 // nav item , nav item list ,
 @Composable
@@ -44,6 +45,7 @@ fun HomeScreen( navController: NavController) {
     )
 
     Scaffold(
+        containerColor = white,
         bottomBar = {
          NavigationBar() {
              navItems.forEachIndexed { index, navItem ->
