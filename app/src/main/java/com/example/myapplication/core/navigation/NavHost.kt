@@ -1,5 +1,6 @@
 package com.example.myapplication.core.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -8,7 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.features.auth.presentation.screens.LoginScreen
 import com.example.myapplication.features.auth.presentation.screens.SignUpScreen
 import com.example.myapplication.core.navigation.Screen
+import com.example.myapplication.features.exams.presentation.Screens.ExamInstructionsScreen
 import com.example.myapplication.features.exams.presentation.Screens.ExamsScreen
+import com.example.myapplication.features.exams.presentation.Screens.QuestionsScreen
 import com.example.myapplication.features.home.presentation.Screens.HomeScreen
 
 @Composable
@@ -17,7 +20,7 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.LoginScreen.route
+        startDestination = Screen.HomeScreen.route
     ) {
 
         composable(Screen.LoginScreen.route) {
@@ -42,5 +45,41 @@ val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
                 )
 
         }
+        composable(Screen.ExamInstructionsScreen.route +"/{title}/{duration}/{numOfQuestions}"){
+            backStackEntry ->
+            val title = backStackEntry.arguments?.getString("title") ?: ""
+            val examId = backStackEntry.arguments?.getString("examId") ?: ""
+
+            val duration =
+                backStackEntry.arguments?.getString("duration")?.toIntOrNull() ?: 0
+
+            val numOfQuestions =
+                backStackEntry.arguments
+                    ?.getString("numOfQuestions")
+                    ?.toIntOrNull() ?: 0
+            Log.d("NAV", "title = $title")
+            Log.d("NAV", "duration = $duration")
+            Log.d("NAV", "questions = $numOfQuestions")
+            ExamInstructionsScreen(
+                navController = navController,
+                title = title,
+                duration = duration,
+                numOfQuestions = numOfQuestions ,
+                examId =examId,
+            )
+
+
+        }
+        composable(Screen.QuestionsScreen.route +"/{examId}"+"/{numOfQuestions}") {
+            backStackEntry ->
+            val examId = backStackEntry.arguments?.getString("examId") ?: ""
+            val numOfQuestions =
+                backStackEntry.arguments
+                    ?.getString("numOfQuestions")
+                    ?.toIntOrNull() ?: 0
+            QuestionsScreen(navController = navController ,
+                examId = examId,numOfQuestions=numOfQuestions)
+        }
+
     }
 }

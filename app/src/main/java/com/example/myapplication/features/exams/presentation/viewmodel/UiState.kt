@@ -20,7 +20,7 @@ sealed interface QuestionsUiState{
     data object Loading : QuestionsUiState
 
     data class Success(
-        val exams: List<Question>
+        val questionWithAnswers: List<Question>
     ) : QuestionsUiState
 
     data class Error(

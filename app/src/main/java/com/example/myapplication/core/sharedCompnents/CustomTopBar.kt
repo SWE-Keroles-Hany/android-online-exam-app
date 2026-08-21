@@ -1,6 +1,7 @@
 package com.example.myapplication.core.sharedCompnents
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,10 +16,14 @@ import com.example.myapplication.ui.theme.white
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopBar(modifier: Modifier = Modifier , navController: NavController ,
-                 title: String
+fun CustomTopBar(modifier: Modifier = Modifier, navController: NavController,
+                 title: String?,
+
+                 actions: @Composable RowScope.() -> Unit = {},
+
                  ) {
     TopAppBar(
+        actions =actions ,
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = white
         ) ,
@@ -30,7 +35,7 @@ fun CustomTopBar(modifier: Modifier = Modifier , navController: NavController ,
                 imageVector = Icons.Default.ArrowBack, contentDescription = null)
         },
         title = {
-            Text(text = title)
+            Text(text = title?:"")
         }
     )
 }

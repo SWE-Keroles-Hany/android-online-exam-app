@@ -2,6 +2,7 @@ package com.example.myapplication.features.exams.presentation.Componenets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,7 +35,8 @@ fun CustomExamItem(
     title : String,
     minutes: Int?,
     from : String ,
-    to : String
+    to : String,
+    onClick: () -> Unit
 )
 {
         Row(
@@ -45,7 +47,10 @@ fun CustomExamItem(
                 .background(
                     color = Color.White,
                     shape = RoundedCornerShape(12.dp)
-                ).padding(16.dp),
+                ).padding(16.dp).clickable{
+                    onClick()
+                }
+            ,
             verticalAlignment = Alignment.CenterVertically,
         ){
 

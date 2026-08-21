@@ -19,7 +19,7 @@ fun CustomButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
 
         Button(

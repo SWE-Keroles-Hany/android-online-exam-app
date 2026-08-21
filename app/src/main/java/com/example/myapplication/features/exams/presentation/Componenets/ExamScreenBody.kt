@@ -1,4 +1,4 @@
-package com.example.myapplication.features.exams.presentation.Screens
+package com.example.myapplication.features.exams.presentation.Componenets
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,10 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import com.example.myapplication.core.navigation.Screen
 import com.example.myapplication.core.sharedCompnents.CustomError
 import com.example.myapplication.core.sharedCompnents.CustomHeight
 import com.example.myapplication.core.sharedCompnents.LoadingIndicator
-import com.example.myapplication.features.exams.presentation.Componenets.CustomExamItem
 import com.example.myapplication.features.exams.presentation.viewmodel.ExamsUiState
 import com.example.myapplication.features.exams.presentation.viewmodel.ExamsViewModel
 import com.example.myapplication.ui.theme.primaryColor
@@ -27,6 +28,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun ExamScreenBody(
     subjectId:String? ,
+    navController: NavController,
     examsViewModel: ExamsViewModel = koinViewModel(),
     ) {
     LaunchedEffect(subjectId) {
@@ -46,7 +48,6 @@ fun ExamScreenBody(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Text("No Exam Found",
-
                             style = MaterialTheme.typography.titleMedium.copy(
                                 color = primaryColor
                             )
@@ -60,6 +61,9 @@ fun ExamScreenBody(
                     ) {
                         items(items) { item ->
                             CustomExamItem(
+                                onClick = {
+                                    navController.navigate(Screen.ExamInstructionsScreen.route + "/${item.title}/${item.duration}/${item.numberOfQuestions}")
+                                },
                                 title = item.title,
                                 minutes = item.duration,
                                 from = "",

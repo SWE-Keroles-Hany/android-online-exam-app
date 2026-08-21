@@ -77,10 +77,6 @@ fun HomeScreen( navController: NavController) {
         }
     }
 
-
-
-
-
 }
 
 @Preview(showSystemUi = true, showBackground = true)
