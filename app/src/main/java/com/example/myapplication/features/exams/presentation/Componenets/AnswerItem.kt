@@ -18,12 +18,13 @@ import com.example.myapplication.ui.theme.primaryColor
 import com.example.myapplication.ui.theme.whiteBlue
 
 @Composable
-fun QuestionItem(question: String ,onClick: (() -> Unit) , selected: Boolean ) {
+fun AnswerItem(answer: String ,onClick: (() -> Unit) , selected: Boolean ) {
     Surface(
         color = whiteBlue,
         shape = CircleShape.copy(all = CornerSize(10)) ,
         modifier = Modifier.padding(bottom = 16.dp)
-    ){
+    ) {
+
         Row(
             modifier = Modifier.fillMaxWidth()  ,
             verticalAlignment = Alignment.CenterVertically,
@@ -34,7 +35,7 @@ fun QuestionItem(question: String ,onClick: (() -> Unit) , selected: Boolean ) {
                     unselectedColor = primaryColor,
                 ) ,
                 selected = selected , onClick=  onClick)
-            Text(question ,
+            Text(answer ,
                 style = MaterialTheme.typography.titleMedium)
         }
     }

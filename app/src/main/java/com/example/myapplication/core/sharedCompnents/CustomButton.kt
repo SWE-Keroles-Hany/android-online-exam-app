@@ -14,9 +14,9 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomButton(
-    bgColor : Color ,
-    title : String ,
-    onClick: () -> Unit,
+    bgColor : Color,
+    title : String,
+    onClick:  () -> Unit,
     modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxWidth()

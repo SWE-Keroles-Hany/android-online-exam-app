@@ -62,7 +62,8 @@ fun ExamScreenBody(
                         items(items) { item ->
                             CustomExamItem(
                                 onClick = {
-                                    navController.navigate(Screen.ExamInstructionsScreen.route + "/${item.title}/${item.duration}/${item.numberOfQuestions}")
+
+                                    navController.navigate(Screen.ExamInstructionsScreen.route + "/${item.title}/${item.duration}/${item.numberOfQuestions}/${item.examId}")
                                 },
                                 title = item.title,
                                 minutes = item.duration,

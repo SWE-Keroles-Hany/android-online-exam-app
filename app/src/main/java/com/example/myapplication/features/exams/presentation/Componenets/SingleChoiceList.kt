@@ -10,17 +10,22 @@ import androidx.compose.ui.Modifier
 import com.example.myapplication.features.exams.domain.models.Answer
 
 @Composable
-fun SingleChoiceList(answers: List<Answer>,  onAnswerSelected: (Int) -> Unit ,selectedAnswer:Int) {
+fun SingleChoiceList(
+    answers: List<Answer>,
+    selectedAnswers: Map<String,Int>,
+    onAnswerSelected: (Int) -> Unit ,
+    questionId:String,
+    ) {
 
     LazyColumn() {
         items(answers.size) {
-                item ->
-            QuestionItem(
-                question = answers[item].answer,
+                index ->
+            AnswerItem(
+                answer = answers[index].answer,
                 onClick = {
-                    onAnswerSelected(item)
+                    onAnswerSelected(index)
                 } ,
-                selected = item == selectedAnswer,
+                selected = index == selectedAnswers[questionId],
             )
         }
     }

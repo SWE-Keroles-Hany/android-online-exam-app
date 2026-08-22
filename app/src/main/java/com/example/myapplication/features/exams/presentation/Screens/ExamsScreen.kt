@@ -15,8 +15,10 @@ fun ExamsScreen(
     Scaffold(
         containerColor = white,
         topBar = {
-            CustomTopBar(navController = navController,
-                title = subjectTitle ?:"")})
+            CustomTopBar(
+                navController = navController,
+                title = subjectTitle ?:"",
+            )})
     {
         innerPadding ->
         ExamScreenBody(

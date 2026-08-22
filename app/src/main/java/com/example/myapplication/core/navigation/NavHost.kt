@@ -45,7 +45,7 @@ val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
                 )
 
         }
-        composable(Screen.ExamInstructionsScreen.route +"/{title}/{duration}/{numOfQuestions}"){
+        composable(Screen.ExamInstructionsScreen.route +"/{title}/{duration}/{numOfQuestions}/{examId}"){
             backStackEntry ->
             val title = backStackEntry.arguments?.getString("title") ?: ""
             val examId = backStackEntry.arguments?.getString("examId") ?: ""
@@ -57,9 +57,7 @@ val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
                 backStackEntry.arguments
                     ?.getString("numOfQuestions")
                     ?.toIntOrNull() ?: 0
-            Log.d("NAV", "title = $title")
-            Log.d("NAV", "duration = $duration")
-            Log.d("NAV", "questions = $numOfQuestions")
+
             ExamInstructionsScreen(
                 navController = navController,
                 title = title,
@@ -70,16 +68,28 @@ val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
 
 
         }
-        composable(Screen.QuestionsScreen.route +"/{examId}"+"/{numOfQuestions}") {
+        composable(Screen.QuestionsScreen.route +"/{examId}"+"/{numOfQuestions}"+"/{duration}") {
             backStackEntry ->
             val examId = backStackEntry.arguments?.getString("examId") ?: ""
+            val duration =
+                backStackEntry.arguments?.getString("duration")?.toIntOrNull() ?: 0
             val numOfQuestions =
                 backStackEntry.arguments
                     ?.getString("numOfQuestions")
                     ?.toIntOrNull() ?: 0
             QuestionsScreen(navController = navController ,
-                examId = examId,numOfQuestions=numOfQuestions)
+                examId = examId,numOfQuestions=numOfQuestions ,
+
+                duration = duration ,
+                )
         }
 
     }
 }
+
+/*
+3- countdown timer (after terminate timer)
+4- type of questions (single choice , multiple choice)
+5- results/ view scores
+
+*/

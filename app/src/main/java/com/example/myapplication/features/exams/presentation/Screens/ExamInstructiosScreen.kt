@@ -1,29 +1,28 @@
 package com.example.myapplication.features.exams.presentation.Screens
 
-import android.text.style.BulletSpan
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.VerticalDivider
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.R
@@ -34,9 +33,7 @@ import com.example.myapplication.core.sharedCompnents.CustomTopBar
 import com.example.myapplication.core.sharedCompnents.CustomWidth
 import com.example.myapplication.ui.theme.grey
 import com.example.myapplication.ui.theme.primaryColor
-import com.example.myapplication.ui.theme.red
 import com.example.myapplication.ui.theme.white
-import kotlin.time.Duration
 
 @Composable
 fun ExamInstructionsScreen(
@@ -45,6 +42,9 @@ fun ExamInstructionsScreen(
     numOfQuestions:Int,
     examId : String,
     modifier: Modifier = Modifier , navController: NavController) {
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
     val items = listOf(
         "Read all questions carefully before answering.",
         "Answer all questions clearly and write your answers in the correct space",
@@ -55,7 +55,8 @@ fun ExamInstructionsScreen(
     Scaffold(
         containerColor = white,
         topBar = {
-            CustomTopBar(modifier, navController = navController, null )
+            CustomTopBar(
+                 navController = navController,title = null )
         }
     ) {
         innerPadding ->
@@ -111,22 +112,64 @@ fun ExamInstructionsScreen(
             )
 
             CustomHeight(50.0)
-            CustomButton(bgColor = primaryColor , title = "Start" , onClick = {
-
-                navController.navigate(Screen.QuestionsScreen.route + "/$examId"+"/$numOfQuestions")
+            CustomButton(bgColor = primaryColor , title = "Start" ,
+                onClick = {
+                    showDialog = true
             })
+            if(showDialog){
+                CustomDialog(
+                    title ="Ready ?",
+                    subTitle = "Are you ready to start the exam",
+                    onConfirm = {
+                        showDialog = false
+                    navController.navigate(Screen.QuestionsScreen.route + "/$examId"+"/$numOfQuestions"+"/$duration")
+
+                }, onDismiss = {
+                    showDialog =false
+                    })
+            }
 
 
         }
     }
 }
 
-@Preview
+
+
 @Composable
-private fun ExamInstructionsScreenPreview() {
-
-//    ExamInstructionsScreen(
-//        navController = NavController(LocalContext.current)
-//    )
+fun CustomDialog(
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit ,
+    title: String,
+    subTitle: String
+) {
+    AlertDialog(
+        onDismissRequest = {
+            onDismiss()
+        },
+        title = {
+            Text(title, style = MaterialTheme.typography.titleMedium)
+        },
+        text = {
+            Text(subTitle, style = MaterialTheme.typography.titleSmall)
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onConfirm()
+                }
+            ) {
+                Text("Yes")
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = {
+                    onDismiss()
+                }
+            ) {
+                Text("Cancel")
+            }
+        }
+    )
 }
-

@@ -1,6 +1,7 @@
 package com.example.myapplication.features.exams.presentation.viewmodel
 
 import android.net.Network
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,11 +22,15 @@ class ExamsViewModel(
     val examsUiState = _examsUiState.asStateFlow()
     val questionsUiState =_questionsUiState.asStateFlow()
 
-//    init {
-//        getExamsBySubjectId("69d980107c82914570305dbd")
-//       // getQuestionsByExamId("")
-//    }
-
+ private val _answers =
+        mutableStateMapOf<String, Int>()
+    val answers = _answers
+    fun selectAnswer(
+        questionId: String,
+        answerIndex: Int
+    ) {
+        _answers[questionId] = answerIndex
+    }
      fun getExamsBySubjectId(subjectId: String){
         viewModelScope.launch {
             _examsUiState.value = ExamsUiState.Loading

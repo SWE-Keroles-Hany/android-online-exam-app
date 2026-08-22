@@ -16,23 +16,28 @@ import com.example.myapplication.ui.theme.white
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopBar(modifier: Modifier = Modifier, navController: NavController,
-                 title: String?,
+fun CustomTopBar(
+    navController: NavController,
+    title: String?,
+    actions: @Composable RowScope.() -> Unit = {},
+    showNavigationIcon: Boolean = true,
 
-                 actions: @Composable RowScope.() -> Unit = {},
 
-                 ) {
+    ) {
     TopAppBar(
         actions =actions ,
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = white
         ) ,
         navigationIcon = {
-            Icon(
-                modifier = Modifier.clickable{
-                    navController.popBackStack()
-                } ,
-                imageVector = Icons.Default.ArrowBack, contentDescription = null)
+         if(showNavigationIcon){
+             Icon(
+                 modifier = Modifier.clickable{
+                     navController.popBackStack()
+                 } ,
+                 imageVector = Icons.Default.ArrowBack, contentDescription = null
+             )
+         }
         },
         title = {
             Text(text = title?:"")
