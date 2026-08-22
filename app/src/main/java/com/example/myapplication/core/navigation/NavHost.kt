@@ -88,8 +88,6 @@ val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
 }
 
 /*
-3- countdown timer (after terminate timer)
-4- type of questions (single choice , multiple choice)
-5- results/ view scores
+2- results/ view scores
 
 */
