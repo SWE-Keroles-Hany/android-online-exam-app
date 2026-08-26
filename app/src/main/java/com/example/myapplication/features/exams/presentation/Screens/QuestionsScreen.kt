@@ -20,14 +20,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.core.navigation.Screen
 import com.example.myapplication.core.sharedCompnents.CustomButton
 import com.example.myapplication.core.sharedCompnents.CustomError
 import com.example.myapplication.core.sharedCompnents.CustomHeight
@@ -62,7 +65,9 @@ fun QuestionsScreen(
     var showTimeOutDialog by remember {
         mutableStateOf(false)
     }
-
+    var showFinishDialog by remember {
+        mutableStateOf(false)
+    }
     val uiState = examsViewModel.questionsUiState.collectAsStateWithLifecycle()
     val selectedAnswers = examsViewModel.answers
     var questionNumber by remember {
@@ -90,7 +95,7 @@ fun QuestionsScreen(
                             modifier = Modifier.size(30.dp)
                         )
                         CustomWidth(8.0)
-                        CountdownTimer(1)
+                        CountdownTimer(duration)
                     }
                 },
                 showNavigationIcon = false,
@@ -135,14 +140,16 @@ fun QuestionsScreen(
                     CustomHeight(18.0)
 
                     SingleChoiceList(
-                        answers,
-                        selectedAnswers,
-                        {
-                            examsViewModel.selectAnswer(
-                                questionId = question.id ?:"",
-                                answerIndex = it
-                            )
-                    } , question.id ?:"")
+                        answers = answers,
+                        selectedAnswer ="A3",
+                        onAnswerSelected = {},
+                        selectedAnswers =  mapOf(
+                            "admin" to 1,
+                            "editor" to 2,
+                            "viewer" to 3
+                        ),
+                        questionId = ""
+                    )
                 }
                 is QuestionsUiState.Error ->{
                     CustomError((uiState.value as QuestionsUiState.Error).message)
@@ -160,6 +167,8 @@ fun QuestionsScreen(
                 CustomButton(
                     modifier= Modifier.weight(1f) ,
                     bgColor = grey , title = "Back" ,
+                    titleColor = white,
+                    borderColor = white,
                     onClick = {
                         if(questionNumber != 1){
                             questionNumber -= 1;
@@ -168,21 +177,27 @@ fun QuestionsScreen(
                     })
                 CustomWidth(20.0)
                 CustomButton(bgColor = primaryColor ,
+                    titleColor = white,
+                    borderColor = white,
+
                     modifier= Modifier.weight(1f) ,
-                    title =if(questionNumber == numOfQuestions ) "Finish" else "Next", onClick = {
+                    title =if(questionNumber == numOfQuestions ) "Finish" else "Next",
+                    onClick = {
                         if(questionNumber != numOfQuestions){
                             questionNumber += 1;
                            selectedAnswer = -1
+                        }else{
+                            showFinishDialog = true
+                            // show dialog for submission
                         }
-                        // navigate to exam score - resutls/ screen
-
-
 
                     })
             }
             CustomHeight(50.0)
             CustomButton(
                 modifier= Modifier.weight(1f) ,
+                titleColor = white,
+                borderColor = white,
                 bgColor = red , title = "Exit Exam" ,
                 onClick = {
                     showExitExamDialog = true
@@ -211,16 +226,33 @@ fun QuestionsScreen(
                     showExitExamDialog =false
                 })
         }
+        if(showFinishDialog){
+            CustomDialog(
+                title ="Submit",
+                subTitle = "Are you sure to finish the exam",
+                onConfirm = {
+                    showFinishDialog =false
+                    navController.navigate(Screen.ExamScoreScreen.route)
 
+                } , onDismiss = {
+                    showExitExamDialog =false
+                })
+        }
 
 
         }
     }
 
 
-//@Preview
-//@Composable
-//private fun QuestionsScreenPreview()
-//{
-//    QuestionsScreen(navController = NavController(LocalContext.current),)
-//}
+@Preview
+@Composable
+private fun QuestionsScreenPreview()
+{
+    QuestionsScreen(
+        navController = NavController(LocalContext.current),
+        duration = 10,
+        examsViewModel = koinViewModel(),
+        numOfQuestions = 10,
+        examId = "TODO()",
+    )
+}

@@ -55,6 +55,8 @@ fun TimeOutDialog(onClick: () -> Unit) {
                 ))
                 CustomHeight(20.0)
                 CustomButton(bgColor = primaryColor , title = "View Score" ,
+                    titleColor = white,
+                    borderColor = white,
                     onClick = {
                         onClick()
                     })

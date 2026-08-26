@@ -48,6 +48,7 @@ import com.example.myapplication.ui.theme.black
 import com.example.myapplication.ui.theme.grey
 import com.example.myapplication.ui.theme.primaryColor
 import com.example.myapplication.ui.theme.red
+import com.example.myapplication.ui.theme.white
 import org.koin.compose.viewmodel.koinViewModel
 import java.time.format.TextStyle
 
@@ -205,7 +206,9 @@ fun LoginScreen(
 
             } ,
             title = "Login" ,
-            bgColor =primaryColor
+            bgColor =primaryColor ,
+            borderColor = white ,
+            titleColor = white
 
         )
 

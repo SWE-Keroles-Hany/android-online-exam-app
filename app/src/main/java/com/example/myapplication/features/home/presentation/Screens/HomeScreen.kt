@@ -19,7 +19,7 @@ import androidx.navigation.NavController
 import com.example.myapplication.features.home.presentation.componenets.HomeTab
 import com.example.myapplication.features.home.presentation.componenets.NavItem
 import com.example.myapplication.features.profile.presentation.ProfileTab
-import com.example.myapplication.features.results.presentation.ResultsTab
+import com.example.myapplication.features.results.presentation.componenets.ResultsTab
 import com.example.myapplication.ui.theme.primaryColor
 import com.example.myapplication.ui.theme.white
 

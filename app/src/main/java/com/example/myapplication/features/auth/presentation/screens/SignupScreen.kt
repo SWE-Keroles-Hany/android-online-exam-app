@@ -47,6 +47,7 @@ import com.example.myapplication.features.auth.presentation.viewmodel.AuthViewMo
 import com.example.myapplication.ui.theme.black
 import com.example.myapplication.ui.theme.grey
 import com.example.myapplication.ui.theme.primaryColor
+import com.example.myapplication.ui.theme.white
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -296,7 +297,7 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController ,
                     }
 
                 },
-                title = "Sign up" , bgColor = primaryColor)
+                title = "Sign up" , bgColor = primaryColor , titleColor = white , borderColor = white)
             CustomHeight(8.0)
 
             Row() {

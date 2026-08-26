@@ -9,3 +9,10 @@ fun AnswerDto.toDomain(): Answer {
         key = key
     )
 }
+
+fun Answer.toModel(): AnswerDto {
+    return AnswerDto(
+        answer= answer ,
+        key = key
+    )
+}

@@ -13,6 +13,7 @@ import com.example.myapplication.features.exams.presentation.Screens.ExamInstruc
 import com.example.myapplication.features.exams.presentation.Screens.ExamsScreen
 import com.example.myapplication.features.exams.presentation.Screens.QuestionsScreen
 import com.example.myapplication.features.home.presentation.Screens.HomeScreen
+import com.example.myapplication.features.results.presentation.screens.ExamScoreScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
@@ -20,22 +21,17 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route
+        startDestination = Screen.ExamScoreScreen.route
     ) {
-
         composable(Screen.LoginScreen.route) {
             LoginScreen(navController = navController)
         }
-
         composable(Screen.SignUpScreen.route){
             SignUpScreen(navController=navController)
         }
-
         composable(Screen.HomeScreen.route){
             HomeScreen(navController = navController)
         }
-
-
         composable(Screen.ExamsScreen.route+"/{subjectId}/{subjectTitle}") {
                 backStackEntry ->
 val subjectId = backStackEntry.arguments?.getString("subjectId")
@@ -84,7 +80,12 @@ val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
                 )
         }
 
+        composable(Screen.ExamScoreScreen.route){
+            ExamScoreScreen(navController = navController)
+        }
     }
+
+
 }
 
 /*

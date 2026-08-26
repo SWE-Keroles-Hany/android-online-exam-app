@@ -113,6 +113,8 @@ fun ExamInstructionsScreen(
 
             CustomHeight(50.0)
             CustomButton(bgColor = primaryColor , title = "Start" ,
+                titleColor = white,
+                borderColor = white,
                 onClick = {
                     showDialog = true
             })
