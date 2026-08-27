@@ -1,5 +1,6 @@
 package com.example.myapplication.features.exams.presentation.Componenets
 
+import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import com.example.myapplication.features.exams.domain.models.Answer
@@ -7,9 +8,9 @@ import com.example.myapplication.features.exams.domain.models.Answer
 @Composable
 fun SingleChoiceList(
     answers: List<Answer>,
-    selectedAnswers: Map<String, Int>,
-    onAnswerSelected: (Int) -> Unit,
-    questionId: String,
+//    selectedAnswers: Map<String, String>,
+    onAnswerSelected: (String) -> Unit,
+//    questionId: String,
     selectedAnswer: String,
     ) {
 
@@ -19,9 +20,12 @@ fun SingleChoiceList(
             AnswerItem(
                 answer = answers[index].answer,
                 onClick = {
-                    onAnswerSelected(index)
+                    onAnswerSelected(answers[index].key)
+                    Log.d("TAG","answer ${answers[index].answer}")
+                    Log.d("TAG","answer 2 ${answers[index].key}")
+
                 } ,
-                selected = index == selectedAnswers[questionId],
+                selected = answers[index].key == selectedAnswer,
             )
         }
     }

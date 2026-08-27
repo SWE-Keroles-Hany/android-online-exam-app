@@ -23,13 +23,13 @@ class ExamsViewModel(
     val questionsUiState =_questionsUiState.asStateFlow()
 
  private val _answers =
-        mutableStateMapOf<String, Int>()
+        mutableStateMapOf<String, String>()
     val answers = _answers
     fun selectAnswer(
         questionId: String,
-        answerIndex: Int
+        selectedAnswer: String
     ) {
-        _answers[questionId] = answerIndex
+        _answers[questionId] = selectedAnswer
     }
      fun getExamsBySubjectId(subjectId: String){
         viewModelScope.launch {

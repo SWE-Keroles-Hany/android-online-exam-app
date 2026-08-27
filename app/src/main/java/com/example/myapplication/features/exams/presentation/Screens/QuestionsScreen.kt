@@ -1,5 +1,6 @@
 package com.example.myapplication.features.exams.presentation.Screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -128,6 +129,7 @@ fun QuestionsScreen(
                     val question = questionWithAnswersList[questionNumber-1]
                     val answers = question.answers
 
+
                     Text(question.question,
                         style = MaterialTheme.typography.titleMedium
                             .copy(
@@ -141,14 +143,15 @@ fun QuestionsScreen(
 
                     SingleChoiceList(
                         answers = answers,
-                        selectedAnswer ="A3",
-                        onAnswerSelected = {},
-                        selectedAnswers =  mapOf(
-                            "admin" to 1,
-                            "editor" to 2,
-                            "viewer" to 3
-                        ),
-                        questionId = ""
+                        selectedAnswer =selectedAnswers[question.id].toString(),
+                        onAnswerSelected = {
+                            examsViewModel.selectAnswer(
+                                question.id.toString(),
+                                it
+                            )
+                        },
+//                        selectedAnswers =selectedAnswers,
+//                        questionId =question.id.toString()
                     )
                 }
                 is QuestionsUiState.Error ->{
@@ -233,9 +236,13 @@ fun QuestionsScreen(
                 onConfirm = {
                     showFinishDialog =false
                     navController.navigate(Screen.ExamScoreScreen.route)
+                    Log.d("TAG","Size ${examsViewModel.answers.size}")
+                    Log.d("TAG","Values ${examsViewModel.answers.values.first()}")
+                    Log.d("TAG","Values ${examsViewModel.answers.keys.first()}")
+
 
                 } , onDismiss = {
-                    showExitExamDialog =false
+                    showFinishDialog =false
                 })
         }
 
