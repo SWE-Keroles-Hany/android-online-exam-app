@@ -1,5 +1,4 @@
 package com.example.myapplication.features.results.data.remote.dto
-
 data class CheckAnswersResponseDto(
     val WrongQuestions: List<WrongQuestionDto>,
     val correct: Int,

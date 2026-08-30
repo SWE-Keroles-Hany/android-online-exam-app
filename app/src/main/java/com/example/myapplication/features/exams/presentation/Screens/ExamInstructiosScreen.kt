@@ -1,5 +1,6 @@
-package com.example.myapplication.features.exams.presentation.Screens
+package com.example.myapplication.features.exams.presentation.Screen
 
+import android.R.color.white
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,7 +42,8 @@ fun ExamInstructionsScreen(
     duration: Int,
     numOfQuestions:Int,
     examId : String,
-    modifier: Modifier = Modifier , navController: NavController) {
+    modifier: Modifier = Modifier ,
+    navController: NavController) {
     var showDialog by remember {
         mutableStateOf(false)
     }
@@ -53,11 +55,11 @@ fun ExamInstructionsScreen(
         )
 
     Scaffold(
-        containerColor = white,
         topBar = {
             CustomTopBar(
                  navController = navController,title = null )
-        }
+        },
+        containerColor = com.example.myapplication.ui.theme.white
     ) {
         innerPadding ->
         Column(
@@ -113,8 +115,8 @@ fun ExamInstructionsScreen(
 
             CustomHeight(50.0)
             CustomButton(bgColor = primaryColor , title = "Start" ,
-                titleColor = white,
-                borderColor = white,
+                titleColor = com.example.myapplication.ui.theme.white,
+                borderColor = com.example.myapplication.ui.theme.white,
                 onClick = {
                     showDialog = true
             })

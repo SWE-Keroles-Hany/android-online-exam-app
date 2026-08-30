@@ -1,5 +1,4 @@
 package com.example.myapplication.features.exams.domain.models
-
 data class Exam(
     val examId: String?,
     val active: Boolean,

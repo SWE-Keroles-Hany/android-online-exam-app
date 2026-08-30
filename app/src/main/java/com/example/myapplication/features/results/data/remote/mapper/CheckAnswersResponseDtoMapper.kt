@@ -1,5 +1,4 @@
 package com.example.myapplication.features.results.data.remote.mapper
-
 import com.example.myapplication.features.results.data.remote.dto.CheckAnswersResponseDto
 import com.example.myapplication.features.results.domain.models.CheckAnswersResponse
 

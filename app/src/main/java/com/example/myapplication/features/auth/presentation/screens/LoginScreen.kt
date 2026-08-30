@@ -1,7 +1,5 @@
 package com.example.myapplication.features.auth.presentation.screens
-import android.graphics.Color
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,10 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
@@ -47,10 +43,8 @@ import com.example.myapplication.features.auth.presentation.viewmodel.AuthViewMo
 import com.example.myapplication.ui.theme.black
 import com.example.myapplication.ui.theme.grey
 import com.example.myapplication.ui.theme.primaryColor
-import com.example.myapplication.ui.theme.red
 import com.example.myapplication.ui.theme.white
 import org.koin.compose.viewmodel.koinViewModel
-import java.time.format.TextStyle
 
 @Composable
 fun LoginScreen(

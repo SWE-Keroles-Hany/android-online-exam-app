@@ -1,5 +1,4 @@
 package com.example.myapplication.features.auth.domain.usecases
-
 import com.example.myapplication.core.network.NetworkResult
 import com.example.myapplication.features.auth.domain.models.LoginRequest
 import com.example.myapplication.features.auth.domain.repository.AuthRepository

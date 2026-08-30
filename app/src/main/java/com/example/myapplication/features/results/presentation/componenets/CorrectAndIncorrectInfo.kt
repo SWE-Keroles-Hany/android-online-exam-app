@@ -1,9 +1,7 @@
 package com.example.myapplication.features.results.presentation.componenets
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import com.example.myapplication.core.sharedCompnents.CustomHeight
 import com.example.myapplication.ui.theme.primaryColor
 import com.example.myapplication.ui.theme.red

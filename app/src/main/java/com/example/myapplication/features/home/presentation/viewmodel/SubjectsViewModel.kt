@@ -1,5 +1,4 @@
 package com.example.myapplication.features.home.presentation.viewmodel
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.core.network.NetworkResult

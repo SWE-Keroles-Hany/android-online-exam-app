@@ -1,10 +1,7 @@
 package com.example.myapplication.features.exams.data.remote.datasource
-
 import com.example.myapplication.core.network.NetworkResult
 import com.example.myapplication.features.exams.data.remote.dto.exam.ExamDto
-import com.example.myapplication.features.exams.data.remote.dto.exam.ExamResults
 import com.example.myapplication.features.exams.data.remote.dto.questions.QuestionDto
-import com.example.myapplication.features.exams.data.remote.dto.questions.QuestionsResults
 
 class ExamsRemoteDataSource(private  val examsApi: ExamsApi) {
 

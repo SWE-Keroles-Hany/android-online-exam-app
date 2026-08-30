@@ -40,25 +40,31 @@ import com.example.myapplication.core.sharedCompnents.CustomWidth
 import com.example.myapplication.core.sharedCompnents.LoadingIndicator
 import com.example.myapplication.features.exams.presentation.Componenets.CountdownTimer
 import com.example.myapplication.features.exams.presentation.Componenets.SingleChoiceList
+import com.example.myapplication.features.exams.presentation.Screen.CustomDialog
 import com.example.myapplication.features.exams.presentation.viewmodel.ExamsViewModel
 import com.example.myapplication.features.exams.presentation.viewmodel.QuestionsUiState
+import com.example.myapplication.features.results.domain.models.CheckAnswersRequest
+import com.example.myapplication.features.results.presentation.viewmodel.ResultsViewModel
 import com.example.myapplication.ui.theme.grey
 import com.example.myapplication.ui.theme.primaryColor
 import com.example.myapplication.ui.theme.red
 import com.example.myapplication.ui.theme.white
 import org.koin.compose.viewmodel.koinViewModel
-
+import kotlin.collections.get
 
 
 @Composable
 fun QuestionsScreen(
-            duration:Int,
-              navController: NavController,
-              examsViewModel : ExamsViewModel = koinViewModel(),
-              numOfQuestions:Int, examId:String  )
+    duration:Int,
+    navController: NavController,
+    examsViewModel : ExamsViewModel ,
+    examId:String  )
 {
     LaunchedEffect(Unit){
         examsViewModel.getQuestionsByExamId(examId)
+    }
+    var numOfQuestions by remember {
+        mutableIntStateOf(1)
     }
     var showExitExamDialog by remember {
         mutableStateOf(false)
@@ -70,14 +76,10 @@ fun QuestionsScreen(
         mutableStateOf(false)
     }
     val uiState = examsViewModel.questionsUiState.collectAsStateWithLifecycle()
-    val selectedAnswers = examsViewModel.answers
     var questionNumber by remember {
        mutableIntStateOf(1)
    }
 
-    var selectedAnswer:Int by remember {
-        mutableIntStateOf(-1)
-    }
     
     Scaffold(
         containerColor = white,
@@ -128,7 +130,7 @@ fun QuestionsScreen(
                     val questionWithAnswersList = (uiState.value as QuestionsUiState.Success).questionWithAnswers;
                     val question = questionWithAnswersList[questionNumber-1]
                     val answers = question.answers
-
+                    numOfQuestions = questionWithAnswersList.size
 
                     Text(question.question,
                         style = MaterialTheme.typography.titleMedium
@@ -143,15 +145,18 @@ fun QuestionsScreen(
 
                     SingleChoiceList(
                         answers = answers,
-                        selectedAnswer =selectedAnswers[question.id].toString(),
+                        selectedAnswer =examsViewModel.answers[questionNumber-1].correct,
                         onAnswerSelected = {
+                            selected ->
+
                             examsViewModel.selectAnswer(
-                                question.id.toString(),
-                                it
+                                questionNumber,
+                                selected
                             )
+                            Log.d("TAG","size of ${examsViewModel.answers.size}")
+
                         },
-//                        selectedAnswers =selectedAnswers,
-//                        questionId =question.id.toString()
+//
                     )
                 }
                 is QuestionsUiState.Error ->{
@@ -175,7 +180,7 @@ fun QuestionsScreen(
                     onClick = {
                         if(questionNumber != 1){
                             questionNumber -= 1;
-                            selectedAnswer = -1
+
                         }
                     })
                 CustomWidth(20.0)
@@ -188,10 +193,8 @@ fun QuestionsScreen(
                     onClick = {
                         if(questionNumber != numOfQuestions){
                             questionNumber += 1;
-                           selectedAnswer = -1
                         }else{
                             showFinishDialog = true
-                            // show dialog for submission
                         }
 
                     })
@@ -235,11 +238,7 @@ fun QuestionsScreen(
                 subTitle = "Are you sure to finish the exam",
                 onConfirm = {
                     showFinishDialog =false
-                    navController.navigate(Screen.ExamScoreScreen.route)
-                    Log.d("TAG","Size ${examsViewModel.answers.size}")
-                    Log.d("TAG","Values ${examsViewModel.answers.values.first()}")
-                    Log.d("TAG","Values ${examsViewModel.answers.keys.first()}")
-
+                    navController.navigate(Screen.ExamScoreScreen.route + "/${duration}")
 
                 } , onDismiss = {
                     showFinishDialog =false
@@ -259,7 +258,7 @@ private fun QuestionsScreenPreview()
         navController = NavController(LocalContext.current),
         duration = 10,
         examsViewModel = koinViewModel(),
-        numOfQuestions = 10,
+
         examId = "TODO()",
     )
 }

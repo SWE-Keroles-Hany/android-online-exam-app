@@ -1,6 +1,5 @@
 [versions]
 coil = "2.7.0"
-
 agp = "9.1.1"
 coreKtx = "1.19.0"
 junit = "4.13.2"
@@ -18,7 +17,6 @@ foundationLayout = "1.11.4"
 material3 = "1.4.0"
 playServicesDtdi = "16.0.0-beta02"
 constraintlayoutCore = "1.1.2"
-
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 androidx-compose-material-icons-extended = {module = "androidx.compose.material:material-icons-extended" }
@@ -52,4 +50,4 @@ androidx-constraintlayout-core = { group = "androidx.constraintlayout", name = "
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }

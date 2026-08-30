@@ -1,5 +1,4 @@
 package com.example.myapplication.features.exams.presentation.Componenets
-
 import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -21,9 +20,6 @@ fun SingleChoiceList(
                 answer = answers[index].answer,
                 onClick = {
                     onAnswerSelected(answers[index].key)
-                    Log.d("TAG","answer ${answers[index].answer}")
-                    Log.d("TAG","answer 2 ${answers[index].key}")
-
                 } ,
                 selected = answers[index].key == selectedAnswer,
             )

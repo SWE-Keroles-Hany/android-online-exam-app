@@ -1,7 +1,6 @@
 package com.example.myapplication.features.exams.domain.repo
 
 import com.example.myapplication.core.network.NetworkResult
-import com.example.myapplication.features.exams.data.remote.datasource.ExamsRemoteDataSource
 import com.example.myapplication.features.exams.domain.models.Exam
 import com.example.myapplication.features.exams.domain.models.Question
 

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.input.rememberTextFieldState
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,9 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.core.navigation.Screen
@@ -40,11 +37,9 @@ import com.example.myapplication.core.network.NetworkResult
 import com.example.myapplication.core.sharedCompnents.CustomButton
 import com.example.myapplication.core.sharedCompnents.CustomHeight
 import com.example.myapplication.core.sharedCompnents.CustomTextField
-import com.example.myapplication.core.sharedCompnents.CustomWidth
 import com.example.myapplication.core.validation.AppValidation
 import com.example.myapplication.features.auth.domain.models.SignupRequest
 import com.example.myapplication.features.auth.presentation.viewmodel.AuthViewModel
-import com.example.myapplication.ui.theme.black
 import com.example.myapplication.ui.theme.grey
 import com.example.myapplication.ui.theme.primaryColor
 import com.example.myapplication.ui.theme.white

@@ -1,5 +1,4 @@
 package com.example.myapplication.features.home.presentation.viewmodel
-
 import com.example.myapplication.features.home.domain.models.Subject
 
 sealed interface SubjectUiState {

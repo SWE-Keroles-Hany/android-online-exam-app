@@ -1,11 +1,11 @@
 package com.example.myapplication.core.di
 
 import com.example.myapplication.core.network.AuthInterceptor
-import com.example.myapplication.core.network.NetworkConstants
 import com.example.myapplication.core.network.NetworkConstants.BASE_URL
 import com.example.myapplication.features.auth.data.remote.AuthApi
 import com.example.myapplication.features.exams.data.remote.datasource.ExamsApi
 import com.example.myapplication.features.home.data.remote.datasource.SubjectsApi
+import com.example.myapplication.features.results.data.remote.datasource.ResultsApi
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -26,7 +26,7 @@ val networkModule = module {
 
     single<Retrofit> {
         Retrofit.Builder()
-            .baseUrl(NetworkConstants.BASE_URL)
+            .baseUrl(BASE_URL)
             .client(get())
             .addConverterFactory(
                 GsonConverterFactory.create()
@@ -42,6 +42,9 @@ val networkModule = module {
     }
     single<ExamsApi> {
         get<Retrofit>().create(ExamsApi::class.java)
+    }
+    single<ResultsApi> {
+        get<Retrofit>().create(ResultsApi::class.java)
     }
 
 }

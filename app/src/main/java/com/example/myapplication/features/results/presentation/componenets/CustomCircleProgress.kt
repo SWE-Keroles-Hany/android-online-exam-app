@@ -17,17 +17,14 @@ import com.example.myapplication.ui.theme.primaryColor
 
 @Composable
 fun CustomCircleProgress(
-    percentage: Float,
-
-
-    ) {
+    percentage: String, progress:Float) {
 
     Box(
         contentAlignment = Alignment.Center
     ){
         CircularProgressIndicator(
             gapSize = 5.dp,
-            progress = { percentage },
+            progress = { progress },
             modifier = Modifier
                 .padding(16.dp)
                 .size(120.dp),
@@ -36,7 +33,7 @@ fun CustomCircleProgress(
             trackColor = ProgressIndicatorDefaults.circularColor.copy(red = 1F , green = 0F , blue = 0F),
             strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
         )
-        Text("${percentage*100}%", style = MaterialTheme.typography.titleLarge.copy(
+        Text(percentage, style = MaterialTheme.typography.titleLarge.copy(
             fontWeight = FontWeight.Bold ,
         ))
     }

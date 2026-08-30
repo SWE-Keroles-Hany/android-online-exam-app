@@ -1,6 +1,5 @@
 package com.example.myapplication.core.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -8,21 +7,25 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.features.auth.presentation.screens.LoginScreen
 import com.example.myapplication.features.auth.presentation.screens.SignUpScreen
-import com.example.myapplication.core.navigation.Screen
-import com.example.myapplication.features.exams.presentation.Screens.ExamInstructionsScreen
+import com.example.myapplication.features.exams.presentation.Screen.ExamInstructionsScreen
 import com.example.myapplication.features.exams.presentation.Screens.ExamsScreen
 import com.example.myapplication.features.exams.presentation.Screens.QuestionsScreen
+import com.example.myapplication.features.exams.presentation.viewmodel.ExamsViewModel
 import com.example.myapplication.features.home.presentation.Screens.HomeScreen
+import com.example.myapplication.features.results.domain.models.SelectedAnswer
 import com.example.myapplication.features.results.presentation.screens.AnswersScreen
 import com.example.myapplication.features.results.presentation.screens.ExamScoreScreen
+import org.koin.compose.viewmodel.koinViewModel
+import kotlin.collections.emptyList
+import kotlin.concurrent.timer
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-
+    val examViewModel: ExamsViewModel = koinViewModel()
     NavHost(
         navController = navController,
-        startDestination = Screen.AnswersScreen.route
+        startDestination = Screen.HomeScreen.route
     ) {
         composable(Screen.LoginScreen.route) {
             LoginScreen(navController = navController)
@@ -35,10 +38,11 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         }
         composable(Screen.ExamsScreen.route+"/{subjectId}/{subjectTitle}") {
                 backStackEntry ->
-val subjectId = backStackEntry.arguments?.getString("subjectId")
-val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
+                val subjectId = backStackEntry.arguments?.getString("subjectId")
+            val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
             ExamsScreen(navController = navController , subjectId = subjectId ,
                 subjectTitle = subjectTitle ,
+                examsViewModel = examViewModel
                 )
 
         }
@@ -74,15 +78,20 @@ val subjectTitle = backStackEntry.arguments?.getString("subjectTitle")
                 backStackEntry.arguments
                     ?.getString("numOfQuestions")
                     ?.toIntOrNull() ?: 0
-            QuestionsScreen(navController = navController ,
-                examId = examId,numOfQuestions=numOfQuestions ,
-
-                duration = duration ,
+            QuestionsScreen(
+                navController = navController ,
+                examId = examId, duration = duration,
+                examsViewModel= examViewModel
                 )
         }
 
-        composable(Screen.ExamScoreScreen.route){
-            ExamScoreScreen(navController = navController)
+        composable(Screen.ExamScoreScreen.route+"/{time}"){
+            backStackEntry ->
+            val time =
+                backStackEntry.arguments
+                    ?.getInt("time")
+
+            ExamScoreScreen(navController = navController,time = time?:0, examsViewModel = examViewModel)
         }
         composable ( Screen.AnswersScreen.route ){
             AnswersScreen(navController = navController)

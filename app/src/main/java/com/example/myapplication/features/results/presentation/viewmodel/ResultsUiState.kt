@@ -1,5 +1,4 @@
 package com.example.myapplication.features.results.presentation.viewmodel
-
 import com.example.myapplication.features.results.domain.models.CheckAnswersResponse
 
 sealed interface ResultsUiState {

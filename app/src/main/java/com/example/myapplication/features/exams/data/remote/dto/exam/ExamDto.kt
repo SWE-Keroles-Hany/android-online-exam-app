@@ -1,5 +1,4 @@
 package com.example.myapplication.features.exams.data.remote.dto.exam
-
 data class ExamDto(
     val _id: String?,
     val active: Boolean,

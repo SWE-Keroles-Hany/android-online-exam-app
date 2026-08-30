@@ -1,4 +1,5 @@
 package com.example.myapplication.core.network
+
 sealed class NetworkResult<out T> {
 
     data class Success<T>(

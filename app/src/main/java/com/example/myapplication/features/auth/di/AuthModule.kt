@@ -6,7 +6,6 @@ import com.example.myapplication.features.auth.domain.repository.AuthRepository
 import com.example.myapplication.features.auth.domain.usecases.LoginUseCase
 import com.example.myapplication.features.auth.domain.usecases.SignupUseCase
 import com.example.myapplication.features.auth.presentation.viewmodel.AuthViewModel
-import com.example.myapplication.features.home.domain.repo.SubjectsRepo
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

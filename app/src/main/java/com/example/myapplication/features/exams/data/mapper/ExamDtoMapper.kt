@@ -1,6 +1,4 @@
 package com.example.myapplication.features.exams.data.mapper
-
-import android.R.attr.id
 import com.example.myapplication.features.exams.data.remote.dto.exam.ExamDto
 import com.example.myapplication.features.exams.domain.models.Exam
 

@@ -1,5 +1,7 @@
 package com.example.myapplication.core.validation
 
+import android.util.Patterns
+
 class AppValidation {
     fun validatePhoneNumber(phoneNumber:String):String?{
         return when {
@@ -12,7 +14,7 @@ class AppValidation {
     fun validateEmail(email: String): String? {
         return when {
             email.isBlank() -> "Email is required"
-            !android.util.Patterns.EMAIL_ADDRESS .matcher(email).matches()
+            !Patterns.EMAIL_ADDRESS .matcher(email).matches()
                 -> "Invalid email"
             else -> null
         }

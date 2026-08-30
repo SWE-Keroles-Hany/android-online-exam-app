@@ -1,5 +1,4 @@
 package com.example.myapplication.features.auth.data.remote
-
 import com.example.myapplication.features.auth.domain.models.LoginRequest
 import com.example.myapplication.features.auth.domain.models.SignupRequest
 import retrofit2.Response

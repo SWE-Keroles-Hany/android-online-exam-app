@@ -1,12 +1,11 @@
 package com.example.myapplication.features.exams.presentation.Componenets
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,10 +28,11 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ExamScreenBody(
     subjectId:String? ,
     navController: NavController,
-    examsViewModel: ExamsViewModel = koinViewModel(),
+    examsViewModel: ExamsViewModel,
     ) {
     LaunchedEffect(subjectId) {
-        examsViewModel.getExamsBySubjectId(subjectId!!)
+        examsViewModel.getExamsBySubjectId(subjectId?:"")
+
     }
     val uiState = examsViewModel.examsUiState.collectAsStateWithLifecycle()
     Column(
@@ -40,42 +40,37 @@ fun ExamScreenBody(
     ) {
         when (uiState.value) {
             is ExamsUiState.Success -> {
-                val items = (uiState.value as ExamsUiState.Success).exams
-                if(items.isEmpty()){
+                val exams = (uiState.value as ExamsUiState.Success).exams
+                if( exams.isEmpty() )
+                {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center ,
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        Text("No Exam Found",
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                color = primaryColor
-                            )
-                            )
+                        Text("No Exam Found", style = MaterialTheme.typography.titleMedium.copy(color = primaryColor))
                     }
                 }else{
                     LazyColumn(
                         contentPadding = PaddingValues(
                             top = 80.dp, bottom = 12.dp),
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxWidth().weight(1f)
                     ) {
-                        items(items) { item ->
+                        items(exams.size) {
+                            index ->
                             CustomExamItem(
                                 onClick = {
-
-                                    navController.navigate(Screen.ExamInstructionsScreen.route + "/${item.title}/${item.duration}/${item.numberOfQuestions}/${item.examId}")
+              navController.navigate(Screen.ExamInstructionsScreen.route + "/${exams[index].title}/${exams[index].duration}/${exams[index].numberOfQuestions}/${exams[index].examId}")
                                 },
-                                title = item.title,
-                                minutes = item.duration,
+                                title = exams[index].title,
+                                minutes = exams[index].duration,
                                 from = "",
                                 to = "",
-                                questionsNumber = item.numberOfQuestions
+                                questionsNumber = exams[index].numberOfQuestions
                             )
                             CustomHeight(12.0)
                         }
                 }
-
-
                 }
 
             }

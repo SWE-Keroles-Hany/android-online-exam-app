@@ -1,5 +1,4 @@
 package com.example.myapplication.features.exams.data.remote.dto.questions
-
 data class QuestionDto(
     val _id: String,
     val answers: List<AnswerDto>,
