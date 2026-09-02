@@ -3,3 +3,4 @@ data class QuestionsResults(
     val message: String,
     val questions: List<QuestionDto>
 )
+

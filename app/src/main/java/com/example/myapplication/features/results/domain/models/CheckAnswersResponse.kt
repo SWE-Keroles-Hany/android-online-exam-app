@@ -1,8 +1,8 @@
 package com.example.myapplication.features.results.domain.models
 data class CheckAnswersResponse(
-    val wrongQuestions: List<WrongQuestion>,
+    var wrongQuestions: List<GeneralQuestion>,
     val correct: Int,
-    val correctQuestions: List<CorrectQuestion>,
+    var correctQuestions: List<GeneralQuestion>,
     val message: String,
     val total: String,
     val wrong: Int

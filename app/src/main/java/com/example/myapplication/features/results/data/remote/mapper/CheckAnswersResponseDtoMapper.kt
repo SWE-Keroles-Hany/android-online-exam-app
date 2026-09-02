@@ -4,9 +4,9 @@ import com.example.myapplication.features.results.domain.models.CheckAnswersResp
 
 fun CheckAnswersResponseDto.toDomain(): CheckAnswersResponse {
     return CheckAnswersResponse(
-        wrongQuestions = WrongQuestions.map { it.toDomain() },
+        wrongQuestions = WrongQuestions.map { it -> it.toDomain() },
         correct = correct,
-        correctQuestions = correctQuestions.map { it.toDomain() },
+        correctQuestions = correctQuestions.map { it -> it.toDomain() },
         message = message,
         total = total,
         wrong = wrong

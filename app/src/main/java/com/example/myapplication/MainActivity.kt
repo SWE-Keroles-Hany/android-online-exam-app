@@ -23,3 +23,17 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+/*
+* Refactor *
+- refactor naming components ( answers , results , data Sources )
+- rev ( di , retrofit )
+----------------------
+* Tasks *
+- answers screen results
+- result tab
+- profile
+- token storage , keep loggedIn
+- Icon/name/splash
+*
+*/

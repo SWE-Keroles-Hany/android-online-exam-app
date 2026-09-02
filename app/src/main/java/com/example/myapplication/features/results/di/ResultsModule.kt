@@ -11,6 +11,7 @@ import com.example.myapplication.features.results.data.remote.datasource.Results
 import com.example.myapplication.features.results.data.remote.repo.ResultsRepositoryImpl
 import com.example.myapplication.features.results.domain.repo.ResultsRepository
 import com.example.myapplication.features.results.domain.usecases.CheckAnswersUseCase
+import com.example.myapplication.features.results.domain.usecases.GetAnswersByQuestionIdUseCase
 import com.example.myapplication.features.results.presentation.viewmodel.ResultsViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -36,12 +37,19 @@ val resultsModule = module {
             repository = get()
         )
     }
+    factory {
+        GetAnswersByQuestionIdUseCase(
+            repository = get()
+        )
+    }
+
 
 
     // ViewModel
     viewModel {
         ResultsViewModel(
-            checkAnswersUseCase = get()
+            checkAnswersUseCase = get() ,
+            getAnswersByQuestionIdUseCase = get()
         )
     }
 

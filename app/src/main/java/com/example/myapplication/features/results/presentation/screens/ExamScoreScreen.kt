@@ -45,7 +45,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ExamScoreScreen(
     examsViewModel: ExamsViewModel,
     navController: NavController,
-    resultsViewModel: ResultsViewModel = koinViewModel(),
+    resultsViewModel: ResultsViewModel,
     time: Int ,
     ) {
     val uiState  = resultsViewModel.uiState.collectAsStateWithLifecycle()
@@ -55,8 +55,6 @@ fun ExamScoreScreen(
             request = CheckAnswersRequest(
                 answers =examsViewModel.answers ,
                 time = time))
-
-      //  examsViewModel.clearAnswers()
     }
 
 
@@ -92,17 +90,16 @@ fun ExamScoreScreen(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceAround
                         ) {
-                            // correct - total / 10
                             val correct = checkAnswerResults.correct
                             val total = examsViewModel.answers.size
-
+                            // Answers, Correct, Incorrect
                             CustomCircleProgress(
                                 percentage = "${String.format("%.1f" ,(correct.toFloat()/total.toFloat())*100)}%",
                                 progress= (correct.toFloat()/total.toFloat())
                             )
 
                             CorrectAndInCorrectInfo(
-                                correct =checkAnswerResults.correct ,
+                                correct =checkAnswerResults.correct,
                                 inCorrect = checkAnswerResults.wrong
                             )
                         }
@@ -126,7 +123,6 @@ fun ExamScoreScreen(
                 bgColor = primaryColor ,
                 onClick = {
                     navController.navigate(Screen.AnswersScreen.route)
-
                 } ,
                 title = "Show Results",
                 borderColor = white ,

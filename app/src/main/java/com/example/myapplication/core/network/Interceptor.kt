@@ -7,7 +7,7 @@ class AuthInterceptor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhODQxMjhkZDJlYTA3MjY4ZmIzMWE2ZSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg4MTEyMjg4fQ.l_lJMs5MlEydIWq1hhe7Qr7Y2hzvwMMGNIlzYY3EMYQ"
+        val token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhODQxMjhkZDJlYTA3MjY4ZmIzMWE2ZSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzg4MjU0NDYyfQ.6EwdtBnMvyMe39hlsryVmDCw3b9dN8RXEZ918eIpZyU"
         val request = chain.request()
             .newBuilder()
             .apply {

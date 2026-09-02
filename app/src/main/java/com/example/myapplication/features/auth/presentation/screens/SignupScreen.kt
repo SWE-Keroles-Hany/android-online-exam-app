@@ -315,10 +315,13 @@ fun SignUpScreen(modifier: Modifier = Modifier, navController: NavController ,
 
                 )
 
-                if(isLoading){
+
+        }
+            CustomHeight(5.0)
+            if(isLoading){
                 CircularProgressIndicator(color = primaryColor)
             }
+
         }
-    }
 }}
 

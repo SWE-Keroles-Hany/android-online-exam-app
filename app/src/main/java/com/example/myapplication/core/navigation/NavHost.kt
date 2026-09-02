@@ -15,6 +15,7 @@ import com.example.myapplication.features.home.presentation.Screens.HomeScreen
 import com.example.myapplication.features.results.domain.models.SelectedAnswer
 import com.example.myapplication.features.results.presentation.screens.AnswersScreen
 import com.example.myapplication.features.results.presentation.screens.ExamScoreScreen
+import com.example.myapplication.features.results.presentation.viewmodel.ResultsViewModel
 import org.koin.compose.viewmodel.koinViewModel
 import kotlin.collections.emptyList
 import kotlin.concurrent.timer
@@ -23,9 +24,11 @@ import kotlin.concurrent.timer
 fun AppNavHost(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val examViewModel: ExamsViewModel = koinViewModel()
+    val resultsViewModel: ResultsViewModel = koinViewModel()
+
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route
+        startDestination = Screen.LoginScreen.route
     ) {
         composable(Screen.LoginScreen.route) {
             LoginScreen(navController = navController)
@@ -91,10 +94,15 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 backStackEntry.arguments
                     ?.getInt("time")
 
-            ExamScoreScreen(navController = navController,time = time?:0, examsViewModel = examViewModel)
+            ExamScoreScreen(navController = navController,time = time?:0,
+                examsViewModel = examViewModel,
+                resultsViewModel = resultsViewModel)
         }
         composable ( Screen.AnswersScreen.route ){
-            AnswersScreen(navController = navController)
+            AnswersScreen(navController = navController ,
+                examsViewModel = examViewModel ,
+                resultsViewModel = resultsViewModel,
+                )
         }
 
 

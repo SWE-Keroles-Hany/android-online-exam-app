@@ -39,10 +39,7 @@ fun HomeScreen( navController: NavController) {
             label = "Result",
             icon = Icons.Default.BarChart,
         ),
-        NavItem(
-            label = "Profile",
-            icon = Icons.Default.Person,
-        )
+
     )
 
     Scaffold(
@@ -74,7 +71,7 @@ fun HomeScreen( navController: NavController) {
         when(selectedIndex){
             0 -> HomeTab(navController = navController)
             1-> ResultsTab()
-            2-> ProfileTab()
+          //  2-> ProfileTab()
         }
     }
 
