@@ -1,163 +1,197 @@
 # 📝 Online Exam App
 
-An Android application for taking online exams, built with modern Android development practices and a clean, scalable architecture.
-
-## 🚀 Overview
-
-**Online Exam App** allows users to take exams through a simple and user-friendly interface. The application communicates with remote APIs to retrieve exam data and submit answers.
-
-The project was built with a focus on **clean code, separation of concerns, scalability, and maintainability**.
+An Android application for taking online exams, built with modern Android development practices and a scalable **Clean Architecture + MVVM** structure.
 
 ## ✨ Features
 
 * 📝 Take online exams
 * ❓ Display exam questions and answers
 * 📊 View exam results
-* 🌐 Fetch data from REST APIs
-* 🔄 Handle loading, success, and error states
-* 🧭 Smooth and modern UI
-* 📱 Fully built with Jetpack Compose
+* 🌐 REST API integration
+* 🔄 Loading, success, and error state handling
+* 📱 Modern UI built entirely with Jetpack Compose
 
 ## 🛠️ Tech Stack
 
 * **Kotlin**
 * **Jetpack Compose**
-* **MVVM**
 * **Clean Architecture**
+* **MVVM**
 * **Koin** – Dependency Injection
-* **Retrofit** – API integration
-* **Coroutines** – Asynchronous operations
-* **REST APIs**
-* **Android Jetpack**
+* **Retrofit** – REST API integration
+* **Coroutines** – Asynchronous programming
 
 ## 🏗️ Architecture
 
-The project follows **Clean Architecture + MVVM** to keep the application modular and maintainable.
+The project follows **Feature-Based Clean Architecture with MVVM**.
+
+Each feature is separated into three main layers:
 
 ```text
-Presentation
-     ↓
-   Domain
-     ↓
-    Data
+Feature
+│
+├── data
+│   ├── remote
+│   ├── dto
+│   ├── mapper
+│   └── repo
+│
+├── domain
+│   ├── models
+│   ├── repo
+│   └── usecases
+│
+└── presentation
+    ├── presentation
+    └── viewmodels
 ```
 
-### Presentation Layer
-
-Responsible for the UI and user interactions.
-
-* Jetpack Compose
-* ViewModel
-* UI State
-
-### Domain Layer
-
-Contains the application's business logic.
-
-* Use Cases
-* Domain Models
-* Repository Interfaces
-
-### Data Layer
-
-Responsible for handling external data sources.
-
-* API Services
-* DTOs
-* Repository Implementations
-* Remote Data Source
-
-## 💉 Dependency Injection
-
-**Koin** is used for Dependency Injection.
-
-It is responsible for providing dependencies such as:
-
-* ViewModels
-* Repositories
-* Use Cases
-* Retrofit services
-
-This helps reduce tight coupling between components and makes the project easier to test and maintain.
-
-## 🌐 API Integration
-
-The application communicates with backend services through **REST APIs**.
-
-**Retrofit** is used for:
-
-* Sending API requests
-* Receiving exam data
-* Submitting answers
-* Handling API responses
-
-## 🎨 UI
-
-The application UI is completely built using **Jetpack Compose**, Google's modern toolkit for building native Android interfaces.
-
-Compose provides:
-
-* Declarative UI
-* Reusable components
-* Reactive state management
-* Less boilerplate code
+This structure keeps each feature independent and makes the project easier to maintain, test, and scale.
 
 ## 📂 Project Structure
 
 ```text
 app/
-├── data/
-│   ├── remote/
-│   ├── repository/
-│   └── model/
 │
-├── domain/
-│   ├── model/
-│   ├── repository/
-│   └── usecase/
+├── core/
+│   ├── ...
+│   └── ...
 │
+└── features/
+    │
+    ├── exam/
+    │   │
+    │   ├── data/
+    │   │   ├── remote/
+    │   │   ├── dto/
+    │   │   ├── mapper/
+    │   │   └── repo/
+    │   │
+    │   ├── domain/
+    │   │   ├── models/
+    │   │   ├── repo/
+    │   │   └── usecases/
+    │   │
+    │   └── presentation/
+    │       ├── presentation/
+    │       └── viewmodels/
+    │
+    └── results/
+        │
+        ├── data/
+        │   ├── remote/
+        │   ├── dto/
+        │   ├── mapper/
+        │   └── repo/
+        │
+        ├── domain/
+        │   ├── models/
+        │   ├── repo/
+        │   └── usecases/
+        │
+        └── presentation/
+            ├── presentation/
+            └── viewmodels/
+```
+
+### 🔹 Core
+
+The `core` package contains shared components that can be used across different features.
+
+Examples include:
+
+* Network configuration
+* Common utilities
+* Shared components
+* Dependency Injection
+* Common error handling
+
+### 🔹 Features
+
+Each feature is isolated and follows the same Clean Architecture structure.
+
+### Data Layer
+
+Responsible for handling external data sources.
+
+```text
+data/
+├── remote/
+├── dto/
+├── mapper/
+└── repo/
+```
+
+* **Remote** → API services and remote data sources
+* **DTO** → API response/request models
+* **Mapper** → Converts DTOs into domain models
+* **Repo** → Repository implementations
+
+### Domain Layer
+
+Contains the business logic of the feature.
+
+```text
+domain/
+├── models/
+├── repo/
+└── usecases/
+```
+
+* **Models** → Business/domain models
+* **Repo** → Repository interfaces
+* **Use Cases** → Encapsulate business logic
+
+### Presentation Layer
+
+Responsible for the UI and user interaction.
+
+```text
+presentation/
 ├── presentation/
-│   ├── screens/
-│   ├── components/
-│   └── viewmodel/
-│
-└── di/
-    └── modules/
+└── viewmodels/
 ```
 
-## ▶️ Getting Started
+* **Presentation** → Jetpack Compose screens and UI components
+* **ViewModels** → Manage UI state and communicate with use cases
 
-### 1. Clone the repository
+## 💉 Dependency Injection
 
-```bash
-git clone https://github.com/SWE-Keroles-Hany/online-exam.git
-```
+**Koin** is used for Dependency Injection across the application.
 
-### 2. Open the project
+It provides dependencies such as:
 
-Open the project using **Android Studio**.
+* Repositories
+* Use Cases
+* ViewModels
+* API services
 
-### 3. Sync Gradle
+This helps achieve loose coupling and makes the application easier to maintain and test.
 
-Allow Android Studio to download and synchronize the required dependencies.
+## 🌐 API Integration
 
-### 4. Run the application
+The application communicates with backend services using **REST APIs**.
 
-Connect an Android device or start an Android Emulator, then run the application.
+**Retrofit** is used to handle API communication and retrieve exam-related data.
 
-## 🎯 Project Goals
+## 🎨 UI
 
-This project was built to practice and demonstrate:
+The entire UI is built using **Jetpack Compose**, providing a modern declarative approach to Android UI development.
 
-* Modern Android development
+## 🎯 What This Project Demonstrates
+
+* Modern Android Development
 * Jetpack Compose
+* Feature-Based Architecture
 * Clean Architecture
 * MVVM
 * Dependency Injection with Koin
-* REST API integration
+* REST API Integration
 * Repository Pattern
-* Separation of concerns
-* State management
+* Use Case Pattern
+* DTO → Domain Mapping
+* UI State Management
+* Separation of Concerns
 
 ## 👨‍💻 Author
 
@@ -165,4 +199,4 @@ This project was built to practice and demonstrate:
 
 Android / Mobile Developer
 
-GitHub: [SWE-Keroles-Hany](https://github.com/SWE-Keroles-Hany)
+GitHub: https://github.com/SWE-Keroles-Hany
